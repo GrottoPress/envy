@@ -1,0 +1,13 @@
+name: envy
+version: 0.1.0
+
+authors:
+  - GrottoPress <info@grottopress.com>
+  - N Atta Kusi Adusei <attakusiadusei@gmail.com>
+
+crystal: 0.32.1
+
+license: MIT
+
+description: |
+  Load environment variables from YAML
