@@ -65,42 +65,6 @@ ENV["APP_SERVER_PORT"] = "8080"
     Envy.from_file! ".env.yml", ".env.dev.yml", perm: 0o400
     ```
 
-- Load raw YAML string. This does *not* overwrite existing environment variables:
-
-    ```crystal
-    require "envy"
-
-    Envy.from_yaml %(
-      app:
-        database:
-          host: localhost
-          port: 4321
-        server:
-          hosts:
-            - localhost
-            - grottopress.localhost
-          port: 8080
-    )
-    ```
-
-- Load raw YAML string. This *overwrites* existing environment variables:
-
-    ```crystal
-    require "envy"
-
-    Envy.from_yaml! %(
-      app:
-        database:
-          host: localhost
-          port: 4321
-        server:
-          hosts:
-            - localhost
-            - grottopress.localhost
-          port: 8080
-    )
-    ```
-
 ## Contributing
 
 1. Fork it (<https://github.com/grottopress/envy/fork>)

@@ -25,44 +25,26 @@ module Envy
   end
 
   def from_file(file, perm : Int32 = DEFAULT_FILE_PERM)
-    load do
-      File.chmod(file, perm)
-      File.open(file, perm: perm) { |f| from_yaml f }
-    end
+    load { from_file file, perm, force: false }
   end
 
   def from_file!(file, perm : Int32 = DEFAULT_FILE_PERM)
-    load do
-      File.chmod(file, perm)
-      File.open(file, perm: perm) { |f| from_yaml! f }
-    end
+    load { from_file file, perm, force: true }
   end
 
-  def from_yaml(yaml)
-    load do
-      load Hash(YAML::Any, YAML::Any).from_yaml(yaml)
-    end
+  private def from_file(file, perm : Int32 = DEFAULT_FILE_PERM, *, force : Bool)
+    File.chmod(file, perm)
+    File.open(file, perm: perm) { |f| from_yaml(f, force: force) }
   end
 
-  def from_yaml!(yaml)
-    load do
-      load Hash(YAML::Any, YAML::Any).from_yaml(yaml), force: true
-    end
+  private def from_yaml(yaml, *, force : Bool)
+    load Hash(YAML::Any, YAML::Any).from_yaml(yaml), force: force
   end
 
-  private def load(& : Proc(Nil)) : Nil
-    unless ENV[var = "ENVY_LOADED"]?
-      yield
-      ENV[var] = "yes" unless ENV[var]?
-    end
-  rescue err : Exception
-    raise Error.new(err.message)
-  end
-
-  private def load(hash : Hash, prev_key = "", *, force = false) : Nil
+  private def load(yaml : Hash, prev_key = "", *, force : Bool) : Nil
     prev_key = prev_key.upcase
 
-    hash.each do |key, val|
+    yaml.each do |key, val|
       key = key.to_s.upcase
 
       case raw = val.raw
@@ -78,5 +60,14 @@ module Envy
         ENV[env_key] = val.to_s if force || ENV[env_key]?.nil?
       end
     end
+  end
+
+  private def load(& : Proc(Nil)) : Nil
+    unless ENV[var = "ENVY_LOADED"]?
+      yield
+      ENV[var] = "yes" unless ENV[var]?
+    end
+  rescue err : Exception
+    raise Error.new(err.message)
   end
 end
