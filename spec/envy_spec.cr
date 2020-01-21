@@ -6,7 +6,7 @@ describe Envy do
       Envy.from_file ENV_FILE
 
       File.info(ENV_FILE).permissions.should(
-        eq File::Permissions.new(Envy::DEFAULT_FILE_PERM)
+        eq File::Permissions.new(0o600)
       )
     end
 

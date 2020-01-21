@@ -6,7 +6,7 @@ require "./envy/*"
 module Envy
   extend self
 
-  DEFAULT_FILE_PERM = 0o600
+  private DEFAULT_FILE_PERM = 0o600
 
   def from_file(*files, perm = DEFAULT_FILE_PERM)
     load do
