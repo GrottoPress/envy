@@ -57,7 +57,7 @@ module Envy
   private def load(& : Proc(Nil)) : Nil
     unless ENV[var = "ENVY_LOADED"]?
       yield
-      ENV[var] = "yes" unless ENV[var]?
+      ENV[var] = "yes"
     end
   rescue err : Exception
     raise Error.new(err.message)
