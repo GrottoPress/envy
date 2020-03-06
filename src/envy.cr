@@ -28,7 +28,7 @@ module Envy
     end
   end
 
-  private def from_file(file, perm : Int32 = DEFAULT_FILE_PERM, *, force : Bool)
+  private def from_file(file, perm = DEFAULT_FILE_PERM, *, force : Bool)
     File.chmod(file, perm)
 
     File.open(file, perm: perm) do |file|
