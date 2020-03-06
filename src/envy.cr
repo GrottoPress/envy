@@ -55,7 +55,7 @@ module Envy
   end
 
   private def load(& : Proc(Nil)) : Nil
-    unless ENV[var = "ENVY_LOADED"]?
+    unless ENV[var = "ENVY_LOADED"]? == "yes"
       yield
       ENV[var] = "yes"
     end
