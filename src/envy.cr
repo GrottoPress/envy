@@ -8,31 +8,39 @@ module Envy
 
   private DEFAULT_FILE_PERM = 0o600
 
-  def from_file(*files, perm = DEFAULT_FILE_PERM)
+  def from_file(*files, perm = DEFAULT_FILE_PERM) : Nil
     load do
+      set_perms files, perm
+
       files.each do |file|
-        return from_file(file, perm, force: false) if File.readable?(file)
+        return from_file(file, force: false) if File.readable?(file)
       end
 
       raise Error.new("files (#{files.join(", ")}) not found or not readable")
     end
   end
 
-  def from_file!(*files, perm = DEFAULT_FILE_PERM)
+  def from_file!(*files, perm = DEFAULT_FILE_PERM) : Nil
     load do
+      set_perms files, perm
+
       files.each do |file|
-        return from_file(file, perm, force: true) if File.readable?(file)
+        return from_file(file, force: true) if File.readable?(file)
       end
 
       raise Error.new("files (#{files.join(", ")}) not found or not readable")
     end
   end
 
-  private def from_file(file, perm = DEFAULT_FILE_PERM, *, force : Bool)
-    File.chmod(file, perm)
-
-    File.open(file, perm: perm) do |file|
+  private def from_file(file, *, force : Bool) : Nil
+    File.open(file) do |file|
       load Hash(YAML::Any, YAML::Any).from_yaml(file), force: force
+    end
+  end
+
+  private def set_perms(files : Tuple, perm = DEFAULT_FILE_PERM) : Nil
+    files.each do |file|
+      File.chmod(file, perm) if File.readable?(file)
     end
   end
 

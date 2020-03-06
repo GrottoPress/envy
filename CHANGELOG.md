@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add support for Crystal version 0.33.0
 
+### Changed
+- Set permissions for all config files (not just the selected one)
+
 ## [0.1.0] - 2020-01-21
 
 ### Added

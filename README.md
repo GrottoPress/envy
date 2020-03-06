@@ -31,7 +31,7 @@ ENV["APP_SERVER_PORT"] = "8080"
 
 **Envy** loads environment variables only once per application life-cycle. This avoids the overhead of reading and parsing YAML files on every single request.
 
-**Envy** sets file permission (`0600` by default) for the loaded config file.
+**Envy** sets file permission (`0600` by default) for all config files.
 
 **Envy** supports loading a file from a supplied list of files in decreasing order of priority; the first readable file is loaded.
 
@@ -49,7 +49,7 @@ ENV["APP_SERVER_PORT"] = "8080"
 
 ## Usage
 
-- Load the first readable file from a supplied list of files. Optionally set file permissions. This does *not* overwrite existing environment variables:
+- Load the first readable file from a supplied list of files. Optionally set files permissions. This does *not* overwrite existing environment variables:
 
     ```crystal
     require "envy"
@@ -57,7 +57,7 @@ ENV["APP_SERVER_PORT"] = "8080"
     Envy.from_file ".env.yml", ".env.dev.yml", perm: 0o400
     ```
 
- - Load the first readable file from a supplied list of files. Optionally set file permissions. This *overwrites* existing environment variables:
+ - Load the first readable file from a supplied list of files. Optionally set files permissions. This *overwrites* existing environment variables:
 
     ```crystal
     require "envy"
