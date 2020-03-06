@@ -65,6 +65,10 @@ ENV["APP_SERVER_PORT"] = "8080"
     Envy.from_file! ".env.yml", ".env.dev.yml", perm: 0o400
     ```
 
+## Security
+
+Kindly report suspected security vulnerabilities in private, via contact details outlined in this repository's `.security.txt` file.
+
 ## Contributing
 
 1. Fork it (<https://github.com/grottopress/envy/fork>)
