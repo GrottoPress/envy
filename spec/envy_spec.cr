@@ -3,9 +3,13 @@ require "./spec_helper"
 describe Envy do
   describe ".from_file" do
     it "sets file permissions" do
-      Envy.from_file ENV_FILE
+      Envy.from_file ENV_FILE, ENV_DEV_FILE, "nop.yml"
 
       File.info(ENV_FILE).permissions.should(
+        eq File::Permissions.new(0o600)
+      )
+
+      File.info(ENV_DEV_FILE).permissions.should(
         eq File::Permissions.new(0o600)
       )
     end
@@ -62,9 +66,13 @@ describe Envy do
 
   describe ".from_file!" do
     it "sets file permissions" do
-      Envy.from_file! ENV_DEV_FILE, perm: 0o400
+      Envy.from_file! ENV_DEV_FILE, ENV_FILE, "nop.yml", perm: 0o400
 
       File.info(ENV_DEV_FILE).permissions.should(
+        eq File::Permissions.new(0o400)
+      )
+
+      File.info(ENV_FILE).permissions.should(
         eq File::Permissions.new(0o400)
       )
     end
