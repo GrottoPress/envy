@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - 
 
+### Changed
+- Refactor to remove `Envy::DEFAULT_FILE_PERM` constant
+
 ### Fixed
 - Set permissions for all files that exist (not just readable ones).
 

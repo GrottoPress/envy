@@ -6,9 +6,7 @@ require "./envy/*"
 module Envy
   extend self
 
-  private DEFAULT_FILE_PERM = 0o600
-
-  def from_file(*files, perm = DEFAULT_FILE_PERM) : Nil
+  def from_file(*files, perm : Int32? = nil) : Nil
     load do
       set_perms files, perm
 
@@ -20,7 +18,7 @@ module Envy
     end
   end
 
-  def from_file!(*files, perm = DEFAULT_FILE_PERM) : Nil
+  def from_file!(*files, perm : Int32? = nil) : Nil
     load do
       set_perms files, perm
 
@@ -38,7 +36,9 @@ module Envy
     end
   end
 
-  private def set_perms(files : Tuple, perm = DEFAULT_FILE_PERM) : Nil
+  private def set_perms(files : Tuple, perm : Int32? = nil) : Nil
+    perm = 0o600 if perm.nil?
+
     files.each do |file|
       File.chmod(file, perm) if File.exists?(file)
     end
