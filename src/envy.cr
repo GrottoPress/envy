@@ -40,7 +40,7 @@ module Envy
 
   private def set_perms(files : Tuple, perm = DEFAULT_FILE_PERM) : Nil
     files.each do |file|
-      File.chmod(file, perm) if File.readable?(file)
+      File.chmod(file, perm) if File.exists?(file)
     end
   end
 
