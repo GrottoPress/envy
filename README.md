@@ -42,7 +42,7 @@ ENV["APP_SERVER_PORT"] = "8080"
    ```yaml
    dependencies:
      envy:
-       github: grottopress/envy
+       github: GrottoPress/envy
    ```
 
 2. Run `shards install`
@@ -65,14 +65,16 @@ ENV["APP_SERVER_PORT"] = "8080"
     Envy.from_file! ".env.yml", ".env.dev.yml", perm: 0o400
     ```
 
+## Contributing
+
+1. [Fork it](https://github.com/GrottoPress/envy/fork)
+1. Switch to the `master` branch: `git checkout master`
+1. Create your feature branch: `git checkout -b my-new-feature`
+1. Make your changes, updating changelog and documentation as appropriate.
+1. Commit your changes: `git commit`
+1. Push to the branch: `git push origin my-new-feature`
+1. Submit a new *Pull Request* against the `GrottoPress:master` branch.
+
 ## Security
 
 Kindly report suspected security vulnerabilities in private, via contact details outlined in this repository's `.security.txt` file.
-
-## Contributing
-
-1. [Fork it](https://github.com/grottopress/envy/fork)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
