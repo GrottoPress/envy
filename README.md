@@ -2,9 +2,7 @@
 
 **Envy** loads and sets environment variables from YAML. It supports all YAML data types, including arrays and hashes.
 
-**Envy** uses the YAML key mapping of a value as the environment variable name.
-
-For example, the following YAML configuration...
+*Envy* uses the YAML key mapping of a value as the environment variable name. For example, the following YAML configuration...
 
 ```yaml
 ---
@@ -29,11 +27,11 @@ ENV["APP_SERVER_HOSTS_1"] = "grottopress.localhost"
 ENV["APP_SERVER_PORT"] = "8080"
 ```
 
-**Envy** loads environment variables only once per application life-cycle. This avoids the overhead of reading and parsing YAML files on every single request.
+*Envy* loads environment variables only once per application life-cycle. This avoids the overhead of reading and parsing YAML files on every single request.
 
-**Envy** sets file permission (`0600` by default) for all config files.
+It sets file permission (`0600` by default) for all config files.
 
-**Envy** supports loading a file from a supplied list of files in decreasing order of priority; the first readable file is loaded.
+*Envy* supports loading a file from a supplied list of files in decreasing order of priority; the first readable file is loaded.
 
 ## Installation
 
