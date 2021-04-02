@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Bump minimum required *Crystal* version to v1.0
+- Replace travis-ci with GitHub actions
 
 ## [0.2.1] - 2020-03-21
 
