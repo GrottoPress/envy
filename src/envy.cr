@@ -31,7 +31,7 @@ module Envy
   end
 
   private def from_file(file, *, force : Bool) : Nil
-    File.open(file) do |file|
+    File.open(file) do |file| # ameba:disable Lint/ShadowingOuterLocalVar
       load Hash(YAML::Any, YAML::Any).from_yaml(file), force: force
     end
   end
