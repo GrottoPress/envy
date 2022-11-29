@@ -15,6 +15,11 @@ app:
       - localhost
       - grottopress.localhost
     port: 8080
+  webhooks:
+    - url: "https://example.com"
+      token: "a1b2c2"
+    - url: "https://myapp.net"
+      token: "d4e5f6"
 ```
 
 ...sets environment variables as follows:
@@ -22,9 +27,15 @@ app:
 ```bash
 ENV["APP_DATABASE_HOST"] = "localhost"
 ENV["APP_DATABASE_PORT"] = "4321"
+
 ENV["APP_SERVER_HOSTS_0"] = "localhost"
 ENV["APP_SERVER_HOSTS_1"] = "grottopress.localhost"
 ENV["APP_SERVER_PORT"] = "8080"
+
+ENV["APP_WEBHOOKS_0_URL"] = "https://example.com"
+ENV["APP_WEBHOOKS_0_TOKEN"] = "a1b2c2"
+ENV["APP_WEBHOOKS_1_URL"] = "https://myapp.net"
+ENV["APP_WEBHOOKS_1_TOKEN"] = "d4e5f6"
 ```
 
 *Envy* loads environment variables only once per application life-cycle. This avoids the overhead of reading and parsing YAML files on every single request.

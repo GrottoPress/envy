@@ -128,6 +128,15 @@ describe Envy do
   end
 
   describe ".load" do
+    it "supports hashes nested under lists" do
+      Envy.from_file ENV_FILE
+
+      ENV["APP_WEBHOOKS_0_URL"]?.should eq("http://example.com")
+      ENV["APP_WEBHOOKS_0_TOKEN"]?.should eq("a1b2c2")
+      ENV["APP_WEBHOOKS_1_URL"]?.should eq("http://example.net")
+      ENV["APP_WEBHOOKS_1_TOKEN"]?.should eq("d4e5f6")
+    end
+
     context "when env file not loaded" do
       it "loads env file" do
         Envy.from_file ENV_FILE

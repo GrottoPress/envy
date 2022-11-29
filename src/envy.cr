@@ -32,7 +32,7 @@ module Envy
 
   private def from_file(file, *, force : Bool) : Nil
     File.open(file) do |file| # ameba:disable Lint/ShadowingOuterLocalVar
-      load Hash(YAML::Any, YAML::Any).from_yaml(file), force: force
+      load YAML.parse(file), force: force
     end
   end
 
@@ -44,30 +44,31 @@ module Envy
     end
   end
 
-  private def load(yaml : Hash, prev_key = "", *, force : Bool) : Nil
-    yaml.each do |key, val|
-      env_key = "#{prev_key}_#{key}".upcase.lchop('_')
-
-      case raw = val.raw
-      when Hash
-        load raw, env_key, force: force
-      when Array
-        raw.each_with_index do |x, i|
-          env_key_i = "#{env_key}_#{i}".lchop('_')
-          ENV[env_key_i] = x.to_s if force || ENV[env_key_i]?.nil?
-        end
-      else
-        ENV[env_key] = val.to_s if force || ENV[env_key]?.nil?
+  private def load(yaml, prev_key = "", *, force)
+    case raw = yaml.raw
+    when Hash
+      raw.each do |key, value|
+        env_key = "#{prev_key}_#{key}".upcase.lchop('_')
+        load(value, env_key, force: force)
+      end
+    when Array, Set
+      raw.each_with_index do |value, index|
+        env_key = "#{prev_key}_#{index}".lchop('_')
+        load(value, env_key, force: force)
+      end
+    else
+      unless prev_key.empty?
+        ENV[prev_key] = raw.to_s if force || ENV[prev_key]?.nil?
       end
     end
   end
 
-  private def load(& : Proc(Nil)) : Nil
-    unless ENV[var = "ENVY_LOADED"]? == "yes"
+  private def load
+    var = "ENVY_LOADED"
+
+    unless ENV[var]? == "yes"
       yield
       ENV[var] = "yes"
     end
-  rescue err : Exception
-    raise Error.new(err.message)
   end
 end
