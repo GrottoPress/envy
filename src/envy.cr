@@ -48,7 +48,7 @@ module Envy
     case raw = yaml.raw
     when Hash
       raw.each do |key, value|
-        env_key = "#{prev_key}_#{key}".upcase.lchop('_')
+        env_key = "#{prev_key}_#{key.to_s.upcase}".lchop('_')
         load(value, env_key, force: force)
       end
     when Array, Set
