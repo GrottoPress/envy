@@ -14,7 +14,7 @@ module Envy
         return from_file(file, force: false) if File.readable?(file)
       end
 
-      raise Error.new("files (#{files.join(", ")}) not found or not readable")
+      raise Error.new("Env file(s) not found or not readable")
     end
   end
 
@@ -26,7 +26,7 @@ module Envy
         return from_file(file, force: true) if File.readable?(file)
       end
 
-      raise Error.new("files (#{files.join(", ")}) not found or not readable")
+      raise Error.new("Env file(s) not found or not readable")
     end
   end
 
