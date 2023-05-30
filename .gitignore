@@ -1,7 +1,8 @@
+/.shards/
+/.vscode/
 /docs/
 /lib/
 /bin/
-/.shards/
 *.dwarf
 /.crystal-version
 
