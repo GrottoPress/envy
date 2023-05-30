@@ -37,10 +37,10 @@ module Envy
   end
 
   private def set_perms(files : Tuple, perm : Int32? = nil) : Nil
-    perm = 0o600 if perm.nil?
-
     files.each do |file|
-      File.chmod(file, perm) if File.exists?(file)
+      File.chmod(file, perm || 0o600)
+    rescue File::Error
+      next
     end
   end
 
