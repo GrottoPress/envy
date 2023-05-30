@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased] - 
 
 ### Fixed
+- Fix wrong shard version in `shard.yml`
+
+## [1.0.1] - 2023-05-30
+
+### Fixed
 - Rescue env file permissions change errors
 
 ## [1.0.0] - 2023-05-30
