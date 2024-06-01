@@ -24,7 +24,7 @@ app:
 
 ...sets environment variables as follows:
 
-```bash
+```crystal
 ENV["APP_DATABASE_HOST"] = "localhost"
 ENV["APP_DATABASE_PORT"] = "4321"
 
