@@ -10,8 +10,8 @@ module Envy
     load do
       set_perms files, perm
 
-      files.each do |file|
-        return from_file(file, force: false) if File.readable?(file)
+      if found = files.find { |file| File.readable?(file) }
+        next from_file(found, force: false)
       end
 
       raise Error.new("Env file(s) not found or not readable")
@@ -22,8 +22,8 @@ module Envy
     load do
       set_perms files, perm
 
-      files.each do |file|
-        return from_file(file, force: true) if File.readable?(file)
+      if found = files.find { |file| File.readable?(file) }
+        next from_file(found, force: true)
       end
 
       raise Error.new("Env file(s) not found or not readable")

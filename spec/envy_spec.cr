@@ -139,8 +139,11 @@ describe Envy do
 
     context "when env file not loaded" do
       it "loads env file" do
+        ENV["ENVY_LOADED"]?.should be_nil
+
         Envy.from_file ENV_FILE
 
+        ENV["ENVY_LOADED"]?.should eq("yes")
         ENV["APP_DATABASE_HOST"]?.should eq("grottopress.com")
         ENV["APP_DATABASE_PORT"]?.should eq("5432")
         ENV["APP_SERVER_HOSTS_0"]?.should eq("grottopress.com")
