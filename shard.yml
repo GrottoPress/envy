@@ -1,5 +1,5 @@
 name: envy
-version: 1.0.2
+version: 1.0.3
 description: Load environment variables from YAML
 
 authors:
