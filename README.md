@@ -38,8 +38,6 @@ ENV["APP_WEBHOOKS_1_URL"] = "https://myapp.net"
 ENV["APP_WEBHOOKS_1_TOKEN"] = "d4e5f6"
 ```
 
-*Envy* loads environment variables only once per application life-cycle. This avoids the overhead of reading and parsing YAML files on every single request.
-
 It sets file permission (`0600` by default) for all config files.
 
 *Envy* supports loading a file from a supplied list of files in decreasing order of priority; the first readable file is loaded.

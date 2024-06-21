@@ -136,34 +136,5 @@ describe Envy do
       ENV["APP_WEBHOOKS_1_URL"]?.should eq("http://example.net")
       ENV["APP_WEBHOOKS_1_TOKEN"]?.should eq("d4e5f6")
     end
-
-    context "when env file not loaded" do
-      it "loads env file" do
-        ENV["ENVY_LOADED"]?.should be_nil
-
-        Envy.from_file ENV_FILE
-
-        ENV["ENVY_LOADED"]?.should eq("yes")
-        ENV["APP_DATABASE_HOST"]?.should eq("grottopress.com")
-        ENV["APP_DATABASE_PORT"]?.should eq("5432")
-        ENV["APP_SERVER_HOSTS_0"]?.should eq("grottopress.com")
-        ENV["APP_SERVER_HOSTS_1"]?.should eq("itechplus.org")
-        ENV["APP_SERVER_PORT"]?.should eq("80")
-      end
-    end
-
-    context "when env file already loaded" do
-      it "does not load env file again" do
-        ENV["ENVY_LOADED"] = "yes"
-
-        Envy.from_file ENV_FILE
-
-        ENV["APP_DATABASE_HOST"]?.should eq(nil)
-        ENV["APP_DATABASE_PORT"]?.should eq(nil)
-        ENV["APP_SERVER_HOSTS_0"]?.should eq(nil)
-        ENV["APP_SERVER_HOSTS_1"]?.should eq(nil)
-        ENV["APP_SERVER_PORT"]?.should eq(nil)
-      end
-    end
   end
 end

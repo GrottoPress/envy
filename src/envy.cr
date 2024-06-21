@@ -7,27 +7,23 @@ module Envy
   extend self
 
   def from_file(*files, perm : Int32? = nil) : Nil
-    load do
-      set_perms files, perm
+    set_perms(files, perm)
 
-      files.find { |file| File.readable?(file) }.try do |file|
-        return from_file(file, force: false)
-      end
-
-      raise Error.new("Env file(s) not found or not readable")
+    files.find { |file| File.readable?(file) }.try do |file|
+      return from_file(file, force: false)
     end
+
+    raise Error.new("Env file(s) not found or not readable")
   end
 
   def from_file!(*files, perm : Int32? = nil) : Nil
-    load do
-      set_perms files, perm
+    set_perms(files, perm)
 
-      files.find { |file| File.readable?(file) }.try do |file|
-        return from_file(file, force: true)
-      end
-
-      raise Error.new("Env file(s) not found or not readable")
+    files.find { |file| File.readable?(file) }.try do |file|
+      return from_file(file, force: true)
     end
+
+    raise Error.new("Env file(s) not found or not readable")
   end
 
   private def from_file(file, *, force : Bool) : Nil
@@ -60,17 +56,6 @@ module Envy
       unless prev_key.empty?
         ENV[prev_key] = raw.to_s if force || ENV[prev_key]?.nil?
       end
-    end
-  end
-
-  private def load
-    var = "ENVY_LOADED"
-    return if ENV[var]? == "yes"
-
-    begin
-      yield
-    ensure
-      ENV[var] = "yes"
     end
   end
 end
